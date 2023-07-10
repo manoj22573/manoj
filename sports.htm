@@ -1,0 +1,179 @@
+<html>
+<head>
+    <title>Indian Sports Dashboard</title>
+    <style>
+        /* CSS styles */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: 70%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        #searchButton {
+            padding: 10px 20px;
+            margin-left: 10px;
+        }
+
+        #sportsContainer {
+            margin-top: 20px;
+        }
+
+        .sport-profile {
+            margin-bottom: 20px;
+        }
+
+        .sport-profile h3 {
+            margin-bottom: 5px;
+        }
+
+        .sport-profile p {
+            margin: 0;
+        }
+
+        .sport-profile a {
+            color: #0366d6;
+        }
+
+        #notFoundMessage {
+            display: none;
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Indian Sports Dashboard</h1>
+        <div>
+            <input type="text" id="searchInput" placeholder="Search sports">
+            <button id="searchButton" onclick="searchData()">Search</button>
+        </div>
+        <div id="sportsContainer"></div>
+        <p id="notFoundMessage">Data not found</p>
+    </div>
+
+    <script>
+        // JavaScript code
+        const sports = [
+            {
+                name: 'Cricket',
+                firstPlayedYear: '1721',
+                placeOfBirth: 'England',
+                greatPlayer: 'Sachin Tendulkar',
+                wikipedia: 'https://en.wikipedia.org/wiki/Cricket'
+            },
+            {
+                name: 'Hockey',
+                firstPlayedYear: '1926',
+                placeOfBirth: 'India',
+                greatPlayer: 'Dhyan Chand',
+                wikipedia: 'https://en.wikipedia.org/wiki/Field_hockey'
+            },
+            {
+                name: 'Chess',
+                firstPlayedYear: '6th century',
+                placeOfBirth: 'India',
+                greatPlayer: 'Viswanathan Anand',
+                wikipedia: 'https://en.wikipedia.org/wiki/Chess'
+            },
+            {
+                name: 'Tennis',
+                firstPlayedYear: '1859',
+                placeOfBirth: 'England',
+                greatPlayer: 'Rafael Nadal',
+                wikipedia: 'https://en.wikipedia.org/wiki/Tennis'
+            },
+            {
+                name: 'Golf',
+                firstPlayedYear: '15th century',
+                placeOfBirth: 'Scotland',
+                greatPlayer: 'Tiger Woods',
+                wikipedia: 'https://en.wikipedia.org/wiki/Golf'
+            },
+            {
+                name: 'Kabaddi',
+                firstPlayedYear: '1930s',
+                placeOfBirth: 'India',
+                greatPlayer: 'Anup Kumar',
+                wikipedia: 'https://en.wikipedia.org/wiki/Kabaddi'
+            },
+            {
+                name: 'Football',
+                firstPlayedYear: '1863',
+                placeOfBirth: 'England',
+                greatPlayer: 'Lionel Messi',
+                wikipedia: 'https://en.wikipedia.org/wiki/Football'
+            },
+            {
+                name: 'Swimming',
+                firstPlayedYear: 'Ancient times',
+                placeOfBirth: 'Egypt',
+                greatPlayer: 'Michael Phelps',
+                wikipedia: 'https://en.wikipedia.org/wiki/Swimming'
+            },
+            {
+                name: 'Kho Kho',
+                firstPlayedYear: '1935',
+                placeOfBirth: 'India',
+                greatPlayer: 'Rakesh Kumar',
+                wikipedia: 'https://en.wikipedia.org/wiki/Kho_kho'
+            },
+            {
+                name: 'Boxing',
+                firstPlayedYear: 'Ancient times',
+                placeOfBirth: 'Egypt',
+                greatPlayer: 'Muhammad Ali',
+                wikipedia: 'https://en.wikipedia.org/wiki/Boxing'
+            }
+        ];
+
+        function renderSports(filteredSports) {
+            const sportsContainer = document.getElementById('sportsContainer');
+            const notFoundMessage = document.getElementById('notFoundMessage');
+
+            sportsContainer.innerHTML = '';
+            notFoundMessage.style.display = 'none';
+
+            if (filteredSports.length === 0) {
+                notFoundMessage.style.display = 'block';
+            } else {
+                filteredSports.forEach(sport => {
+                    const sportDiv = document.createElement('div');
+                    sportDiv.classList.add('sport-profile');
+                    sportDiv.innerHTML = `
+                        <h3>${sport.name}</h3>
+                        <p>First Played Year: ${sport.firstPlayedYear}</p>
+                        <p>Place of Birth: ${sport.placeOfBirth}</p>
+                        <p>One of the Great Players: ${sport.greatPlayer}</p>
+                        <p><a href="${sport.wikipedia}" target="_blank">Wikipedia</a></p>
+                        <hr>
+                    `;
+                    sportsContainer.appendChild(sportDiv);
+                });
+            }
+        }
+
+        function searchData() {
+            const searchInput = document.getElementById('searchInput');
+            const searchTerm = searchInput.value.toLowerCase();
+            const filteredSports = sports.filter(sport => {
+                const name = sport.name.toLowerCase();
+                return name.includes(searchTerm);
+            });
+            renderSports(filteredSports);
+        }
+    </script>
+</body>
+</html>
